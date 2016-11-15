@@ -1,0 +1,104 @@
+{{!< backend}}
+
+<form id="formSave" method="post" action="/backend/desa/save">
+    <div class="box box-primary mini-widget" style="max-width: 500px; margin-left: auto; margin-right: auto;">
+        <div class="box-header with-border">
+            <h3 class="box-title">{{title}}</h3>
+        </div>
+        <div class="box-body">
+            <div class="form-group">
+                <label>Nama Kabupaten</label>
+                <select name="kabupaten" id="kabupaten" class="form-control">
+                    {{#each dt_kabupaten}}
+                        <option value="{{this.id}}">{{this.nama}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Nama Kecamatan</label>
+                <select name="kecamatan" id="kecamatan" class="form-control" {{#unless dt_kecamatan}}{{/unless}}></select>
+            </div>
+            <div class="form-group">
+                <label>Nama Desa</label>
+                <input name="nama" id="nama" type="text" class="form-control" placeholder="Nama Desa" >
+            </div>
+            <div class="form-group">
+                <label>Username</label>
+                <input name="username" id="username" type="text" class="form-control" placeholder="Username" >
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input name="password" id="password" type="password" class="form-control" placeholder="Password" >
+            </div>
+        </div>
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-xs-6">
+                    <button id="reset" type="reset" class="btn btn-flat btn-block btn-danger" >Reset</button>
+                </div>
+                <div class="col-xs-6">
+                    <button id="save" type="submit" class="btn btn-primary btn-block btn-flat" data-loading-text="<i class='fa fa-pulse fa-3x fa-fw fa-spin'></i>" >Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(() => {
+        $.ajax({
+                type: "POST",
+                url:  "/backend/kecamatan/get",
+                data: {
+                    id: $('#kabupaten').val()
+                },
+                success: function(data) {
+                    $('#kecamatan').empty();
+                    var sel_kab = "";
+                    data.data.forEach((dt) => {
+                        sel_kab = sel_kab + `<option value="${dt.id}">${dt.nama}</option>`;
+                    })
+                    $('#kecamatan').append(sel_kab);
+                }
+            });
+        $('#formSave').submit(function() {
+            $.ajax({
+                type: "POST",
+                url:  $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(data) {
+                    if (data.status) {
+                        swal({
+                            type: 'success',
+                            title: 'Selamat data tersimpan !',
+                            text: 'Klik "Lanjutkan !" untuk melanjutkan proses.',
+                            confirmButtonText: 'Lanjutkan !',
+                            allowEscapeKey: false,
+                            allowOutsideClick: false
+                        }).then(function() {
+                            window.location = "/backend/desa/list"
+                        })
+                    }
+                }
+            });
+            return false;
+        });
+        $('#kabupaten').change(function() {
+            $.ajax({
+                type: "POST",
+                url:  "/backend/kecamatan/get",
+                data: {
+                    id: $(this).val()
+                },
+                success: function(data) {
+                    $('#kecamatan').empty();
+                    var sel_kab = "";
+                    data.data.forEach((dt) => {
+                        sel_kab = sel_kab + `<option value="${dt.id}">${dt.nama}</option>`;
+                    })
+                    $('#kecamatan').append(sel_kab);
+                }
+            });
+        });
+    });
+</script>

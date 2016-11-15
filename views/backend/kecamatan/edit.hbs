@@ -1,0 +1,61 @@
+{{!< backend}}
+
+<form id="formSave" method="post" action="/backend/kecamatan/update/{{dt_kecamatan.id}}">
+    <div class="box box-primary mini-widget" style="max-width: 500px; margin-left: auto; margin-right: auto;">
+        <div class="box-header with-border">
+            <h3 class="box-title">{{title}}</h3>
+        </div>
+        <div class="box-body">
+            <div class="form-group">
+                <label>Nama Kabupaten</label>
+                <select name="kabupaten" id="kabupaten" class="form-control">
+                    {{#each dt_kabupaten}}
+                        <option value="{{this.id}}" {{#if this.selected}}selected{{/if}}>{{this.nama}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Nama Kecamatan</label>
+                <input name="nama" id="nama" value="{{dt_kecamatan.nama}}" type="text" class="form-control" placeholder="Nama Kecamatan" >
+            </div>
+            <div class="form-group">
+                <label>Username</label>
+                <input name="username" id="username" value="{{dt_pengguna.username}}" type="text" class="form-control" placeholder="Username" >
+            </div>
+            <div class="form-group">
+                <label>Password</label>
+                <input name="password" id="password" value="{{dt_pengguna.password}}" type="password" class="form-control" placeholder="Password" >
+            </div>
+        </div>
+        <div class="box-footer">
+            <button id="save" type="submit" class="btn btn-primary btn-block btn-flat" data-loading-text="<i class='fa fa-pulse fa-3x fa-fw fa-spin'></i>">Simpan</button>
+        </div>
+    </div>
+</form>
+
+<script>
+    $(() => {
+        $('#formSave').submit(function() {
+            $.ajax({
+                type: "POST",
+                url:  $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(data) {
+                    if (data.status) {
+                        swal({
+                            type: 'success',
+                            title: 'Selamat data tersimpan !',
+                            text: 'Klik "Lanjutkan !" untuk melanjutkan proses.',
+                            confirmButtonText: 'Lanjutkan !',
+                            allowEscapeKey: false,
+                            allowOutsideClick: false
+                        }).then(function() {
+                            window.location = "/backend/kecamatan/list"
+                        })
+                    }
+                }
+            });
+            return false;
+        });
+    });
+</script>

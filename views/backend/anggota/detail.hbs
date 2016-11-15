@@ -1,0 +1,80 @@
+{{!< backend}}
+
+<form id="formSave" method="post" action="/backend/anggota/save" enctype="multipart/form-data">
+    <div class="box box-primary mini-widget" style="max-width: 500px; margin-left: auto; margin-right: auto;">
+        <div class="box-header with-border">
+            <h3 class="box-title">{{title}}</h3>
+        </div>
+        <div class="box-body">
+            <div class="form-group">
+                <label>NIK</label>
+                <p>{{dt_anggota.nik}}</p>
+            </div>
+            <div class="form-group">
+                <label>Nama</label>
+                <p>{{dt_anggota.nama}}</p>
+            </div>
+            <div class="form-group">
+                <label>Kabupaten</label>
+                <p>{{dt_anggota.kabupaten.nama}}</p>
+            </div>
+            <div class="form-group">
+                <label>Kecamatan</label>
+                <p>{{dt_anggota.kecamatan.nama}}</p>
+            </div>
+            <div class="form-group">
+                <label>Desa</label>
+                <p>{{dt_anggota.desa.nama}}</p>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>RT</label>
+                        <p>{{dt_anggota.rt}}</p>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>RW</label>
+                        <p>{{dt_anggota.rw}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Tempat Lahir</label>
+                <p>{{dt_anggota.tptlhr}}</p>
+            </div>
+            <div class="form-group">
+                <label>Tanggal Lahir</label>
+                <p>{{dt_anggota.tgllhr}}</p>
+            </div>
+            <div class="form-group">
+                <label>Jenis Kelamin</label>
+                <p>{{dt_anggota.jenkel}}</p>
+            </div>
+            <div class="form-group">
+                <label>Golongan Darah</label>
+                <p>{{dt_anggota.goldrh}}</p>
+            </div>
+            <div class="form-group">
+                <label>Agama</label>
+                <p>{{dt_anggota.agama}}</p>
+            </div>
+            <div class="form-group">
+                <label>Status Pernikahan</label>
+                <p>{{dt_anggota.status_pernikahan}}</p>
+            </div>
+            <div class="form-group">
+                <label>Pekerjaan</label>
+                <p>{{dt_anggota.pekerjaan}}</p>
+            </div>
+            <div class="form-group">
+                <label>Kewarganegaraan</label>
+                <p>{{dt_anggota.kewarganegaraan}}</p>
+            </div>
+        </div>
+        <div class="box-footer">
+            <a href="/backend/anggota/edit/{{dt_anggota.id}}" class="btn btn-warning btn-block btn-flat">Ubah Data Anggota</a>
+        </div>
+    </div>
+</form>

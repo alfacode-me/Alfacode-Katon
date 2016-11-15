@@ -1,0 +1,73 @@
+{{!< backend}}
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">{{title}}</h3>
+        <div class="box-tools">
+            <a href="/backend/anggota/add" class="btn btn-default btn-sm btn-block btn-flat">Tambah Anggota</a>
+        </div>
+    </div>
+    <div class="box-body table-responsive no-padding">
+        <table class="table table-hover table-striped">
+            <tbody>
+                <tr>
+                    <th>Nama Anggota</th>
+                    <th>NIK</th>
+                    <th>Desa</th>
+                    <th>Kecamatan</th>
+                    <th>Kabupaten</th>
+                    <th></th>
+                </tr>
+                {{#each dt_anggota}}
+                <tr>
+                    <td>{{this.nama}}</td>
+                    <td class="truncate">{{this.nik}}</td>
+                    <td class="truncate">{{this.desa.nama}}</td>
+                    <td class="truncate">{{this.kecamatan.nama}}</td>
+                    <td class="truncate">{{this.kabupaten.nama}}</td>
+                    <td>
+                        <center>
+                            <small>
+                                <a href="/backend/anggota/detail/{{this.id}}" type="button" class="btn btn-sm btn-flat btn-success">Detail</a>
+                                <button type="button" onclick="deleted('{{this.id}}')" class="btn btn-sm btn-flat btn-danger">Hapus</button>
+                            </small>
+                        </center>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div class="box-footer clearfix">
+        <strong class="pagination-total">Total : {{pagi.data}} Anggota</strong>
+        <ul class="pagination pagination-sm no-margin pull-right">
+            {{pagination 'anggota' pagi}}
+        </ul>
+    </div>
+</div>
+
+<script>
+function deleted (id) {
+    $.ajax({
+        type: "POST",
+        url:  "/backend/anggota/delete",
+        data: {
+            id: id
+        },
+        success: function(data) {
+            if (data.status) {
+                swal({
+                    type: 'success',
+                    title: 'Selamat data terhapus !',
+                    text: 'Klik "Lanjutkan !" untuk melanjutkan proses.',
+                    confirmButtonText: 'Lanjutkan !',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false
+                }).then(function() {
+                    window.location = "/backend/anggota/list"
+                })
+            }
+        }
+    });
+}
+</script>

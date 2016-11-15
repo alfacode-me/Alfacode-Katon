@@ -1,0 +1,193 @@
+{{!< backend}}
+
+<form id="formSave" method="post" action="/backend/anggota/save" enctype="multipart/form-data">
+    <div class="box box-primary mini-widget" style="max-width: 500px; margin-left: auto; margin-right: auto;">
+        <div class="box-header with-border">
+            <h3 class="box-title">{{title}}</h3>
+        </div>
+        <div class="box-body">
+            <div class="form-group">
+                <label>NIK</label>
+                <input name="nik" id="nik" type="text" class="form-control" placeholder="NIK" >
+            </div>
+            <div class="form-group">
+                <label>Nama</label>
+                <input name="nama" id="nama" type="text" class="form-control" placeholder="Nama" >
+            </div>
+            <div class="form-group">
+                <label>Kabupaten</label>
+                <select name="kabupaten" id="kabupaten" class="form-control">
+                    {{#each dt_kabupaten}}
+                        <option value="{{this.id}}">{{this.nama}}</option>
+                    {{/each}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Kecamatan</label>
+                <select name="kecamatan" id="kecamatan" class="form-control"></select>
+            </div>
+            <div class="form-group">
+                <label>Desa</label>
+                <select name="desa" id="desa" class="form-control"></select>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>RT</label>
+                        <input name="rt" id="rt" type="text" class="form-control" placeholder="RT" >
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="form-group">
+                        <label>RW</label>
+                        <input name="rw" id="rw" type="text" class="form-control" placeholder="RW" >
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Tempat Lahir</label>
+                <input name="tptlhr" id="tptlhr" type="text" class="form-control" placeholder="Tempat Lahir" >
+            </div>
+            <div class="form-group">
+                <label>Tanggal Lahir</label>
+                <div class="input-group">
+                    <div class="input-group-addon">
+                        <i class="fa fa-calendar"></i>
+                    </div>
+                    <input name="tgllhr" id="tgllhr" type="text" class="form-control datemask" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" placeholder="dd/mm/yyyy" >
+                </div>
+            </div>
+            <div class="form-group">
+                <label>Jenis Kelamin</label>
+                <select name="jenkel" id="jenkel" class="form-control" >
+                    <option value="Laki-laki">Laki-laki</option>
+                    <option value="Perempuan">Perempuan</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Golongan Darah</label>
+                <select name="goldrh" id="goldrh" class="form-control" >
+                    <option value="-">-</option>
+                    <option value="O">O</option>
+                    <option value="A">A</option>
+                    <option value="B">B</option>
+                    <option value="AB">AB</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Agama</label>
+                <select name="agama" id="agama" class="form-control" >
+                    <option value="Islam">Islam</option>
+                    <option value="Kristen">Kristen</option>
+                    <option value="Katholik">Katholik</option>
+                    <option value="Hindhu">Hindhu</option>
+                    <option value="Budha">Budha</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Status Pernikahan</label>
+                <select name="status_pernikahan" id="status_pernikahan" class="form-control" >
+                    <option value="Belum Menikah">Belum Menikah</option>
+                    <option value="Sudah Menikah">Sudah Menikah</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Pekerjaan</label>
+                <input name="pekerjaan" id="pekerjaan" type="text" class="form-control" placeholder="Pekerjaan" >
+            </div>
+            <div class="form-group">
+                <label>Kewarganegaraan</label>
+                <select name="kewarganegaraan" id="kewarganegaraan" class="form-control" >
+                    <option value="WNI">WNI</option>
+                    <option value="WNA">WNA</option>
+                </select>
+            </div>
+        </div>
+        <div class="box-footer">
+            <div class="row">
+                <div class="col-xs-6">
+                    <button id="reset" type="reset" class="btn btn-flat btn-block btn-danger" >Reset</button>
+                </div>
+                <div class="col-xs-6">
+                    <button id="save" type="submit" class="btn btn-primary btn-block btn-flat" data-loading-text="<i class='fa fa-pulse fa-3x fa-fw fa-spin'></i>" >Simpan</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+function kecamatan(callback) {
+    $.ajax({
+        type: "POST",
+        url:  "/backend/kecamatan/get",
+        data: {
+            id: $('#kabupaten').val()
+        },
+        success: function(data) {
+            $('#kecamatan').empty();
+            var sel_kecamatan = "";
+            data.data.forEach((dt) => {
+                sel_kecamatan = sel_kecamatan + `<option value="${dt.id}">${dt.nama}</option>`;
+            })
+            $('#kecamatan').append(sel_kecamatan);
+            callback();
+        }
+    });
+}
+
+function desa() {
+    $.ajax({
+        type: "POST",
+        url:  "/backend/desa/get",
+        data: {
+            id: $('#kecamatan').val()
+        },
+        success: function(data) {
+            $('#desa').empty();
+            $('#desa').append('kosong');
+            var sel_desa = "";
+            data.data.forEach((dt) => {
+                sel_desa = sel_desa + `<option value="${dt.id}">${dt.nama}</option>`;
+            })
+            $('#desa').append(sel_desa);
+        }
+    });
+}
+    $(() => {
+        $(".datemask").inputmask("dd/mm/yyyy", {"placeholder": "dd/mm/yyyy"});
+        kecamatan(function() {
+            desa();
+        });
+        $('#formSave').submit(function() {
+            $.ajax({
+                type: "POST",
+                url:  $(this).attr('action'),
+                data: $(this).serialize(),
+                success: function(data) {
+                    if (data.status) {
+                        swal({
+                            type: 'success',
+                            title: 'Selamat data tersimpan !',
+                            text: 'Klik "Lanjutkan !" untuk melanjutkan proses.',
+                            confirmButtonText: 'Lanjutkan !',
+                            allowEscapeKey: false,
+                            allowOutsideClick: false
+                        }).then(function() {
+                            window.location = "/backend/anggota/list"
+                        })
+                    }
+                }
+            });
+            return false;
+        });
+        $('#kabupaten').change(function() {
+            kecamatan(function() {
+                desa();
+            });
+        });
+        $('#kecamatan').change(function() {
+            desa();
+        });
+    })
+</script>

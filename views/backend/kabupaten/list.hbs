@@ -1,0 +1,72 @@
+{{!< backend}}
+
+<div class="box">
+    <div class="box-header">
+        <h3 class="box-title">{{title}}</h3>
+        <div class="box-tools">
+            <a href="/backend/kabupaten/add" class="btn btn-default btn-sm btn-block btn-flat">Tambah Kabupaten</a>
+        </div>
+    </div>
+    <div class="box-body table-responsive no-padding">
+        <table class="table table-hover table-striped">
+            <tbody>
+                <tr>
+                    <th><center>Nama Kabupaten</center></th>
+                    <th><center>Total Kecamatan</center></th>
+                    <th><center>Total Desa</center></th>
+                    <th><center>Total Anggota</center></th>
+                    <th><center></center></th>
+                </tr>
+                {{#each dt_kabupaten}}
+                <tr>
+                    <td>{{this.nama}}</td>
+                    <td class="truncate"><center>{{this.total_kecamatan}}</center></td>
+                    <td class="truncate"><center>{{this.total_desa}}</center></td>
+                    <td class="truncate"><center>{{this.total}}</center></td>
+                    <td>
+                        <center>
+                            <small>
+                                <a href="/backend/anggota/kabupaten/{{this.id}}/1" type="button" class="btn btn-sm btn-flat btn-success">Anggota</a>
+                                <a href="/backend/kabupaten/edit/{{this.id}}" type="button" class="btn btn-sm btn-flat btn-warning">Ubah</a>
+                                <button type="button" onclick="deleted('{{this.id}}')" class="btn btn-sm btn-flat btn-danger">Hapus</button>
+                            </small>
+                        </center>
+                    </td>
+                </tr>
+                {{/each}}
+            </tbody>
+        </table>
+    </div>
+    <div class="box-footer clearfix">
+        <strong class="pagination-total">Total : {{pagi.data}} Kabupaten</strong>
+        <ul class="pagination pagination-sm no-margin pull-right">
+            {{pagination 'kabupaten' pagi}}
+        </ul>
+    </div>
+</div>
+
+<script>
+function deleted (id) {
+    $.ajax({
+        type: "POST",
+        url:  "/backend/kabupaten/delete",
+        data: {
+            id: id
+        },
+        success: function(data) {
+            if (data.status) {
+                swal({
+                    type: 'success',
+                    title: 'Selamat data terhapus !',
+                    text: 'Klik "Lanjutkan !" untuk melanjutkan proses.',
+                    confirmButtonText: 'Lanjutkan !',
+                    allowEscapeKey: false,
+                    allowOutsideClick: false
+                }).then(function() {
+                    window.location = "/backend/kabupaten/list"
+                })
+            }
+        }
+    });
+}
+</script>

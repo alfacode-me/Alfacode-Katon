@@ -1,0 +1,183 @@
+/* Material Design Icons */
+
+i.mdi::before,
+span.mdi::before,
+button.mdi::before {
+    display: inline-block;
+    font-size: initial;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+td {
+    vertical-align: middle !important;
+}
+
+.pagination-total {
+    position: absolute;
+    padding: 5px 0;
+}
+
+.truncate {
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 16em;
+    text-overflow: ellipsis;
+}
+
+.truncate-notif {
+    white-space: nowrap;
+    overflow: hidden;
+    max-width: 8.6em;
+    text-overflow: ellipsis;
+}
+
+.btn.mdi::before,
+.btn .mdi::before {
+    position: relative;
+}
+
+.btn-xs.mdi::before,
+.btn-xs .mdi::before {
+    font-size: 18px;
+}
+
+.btn-sm.mdi::before,
+.btn-sm .mdi::before {
+    font-size: 18px;
+}
+
+.navbar .navbar-toggle .mdi::before {
+    position: relative;
+    top: 4px;
+    color: #FFF;
+}
+
+.breadcrumb a:hover {
+    text-decoration: none;
+}
+
+.breadcrumb a:hover span {
+    text-decoration: underline;
+}
+
+.alert .mdi::before {
+    position: relative;
+    margin-right: 2px;
+}
+
+.input-group-addon .mdi::before {
+    position: relative;
+}
+
+.navbar-brand .mdi::before {
+    position: relative;
+    margin-right: 2px;
+}
+
+.list-group-item .mdi::before {
+    position: relative;
+    top: 3px;
+    left: -3px
+}
+
+.fa-pulse.mdi,
+.fa-spin.mdi {
+    display: block;
+}
+
+
+/* <end> Material Design Icons */
+
+.layout-boxed {
+    background: url('/src/backend/img/boxed-bg.jpg') repeat fixed;
+}
+
+.login-box-body {
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+}
+
+.btn.btn-flat {
+    -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.2);
+    border-width: 0;
+}
+
+.btn.btn-flat:hover {
+    -webkit-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+    -moz-box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+    border-width: 0;
+}
+
+.form-control {
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+}
+
+.form-control:hover {
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
+}
+
+.form-control:selection {
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
+}
+
+.form-control:active {
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
+}
+
+.input-group-addon .btn-login {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.input-group-addon {
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .1);
+}
+
+.input-group-addon:hover {
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .2);
+}
+
+.box {
+    border-radius: 0;
+    box-shadow: 0 2px 2px rgba(0, 0, 0, .15);
+}
+
+.var {
+    display: none;
+}
+
+.mini-widget {
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.box-footer {
+    background-color: #eee;
+}
+
+.box-header {
+    background-color: #605ca8;
+    color: azure;
+}
+
+.skin-purple .content-header {
+    background: #ddd;
+}
+
+.content-header {
+    position: relative;
+    padding: 15px;
+}
+
+.content-header>.breadcrumb {
+    padding: 5px;
+}
+
+ul.nav-stacked li {
+    padding: 5px 15px 5px 15px;
+}
